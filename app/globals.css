@@ -12,11 +12,90 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+@layer components {
+  .dynamic-text {
+    @apply text-sm text-gray-700 hover:text-gray-900 font-medium;
+  }
+
+  .custom-shadow {
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+
+  .btn-primary {
+    @apply bg-[#1AD598] hover:bg-[#17BF88];
+  }
+
+  .circle-gradient-1 {
+    background: radial-gradient(
+      circle,
+      rgba(150, 255, 220, 1) 0%,
+      rgba(180, 255, 160, 0.7) 50%,
+      rgba(224, 255, 204, 0.2) 80%
+    );
+  }
+
+  .circle-gradient-2 {
+    background: radial-gradient(
+      circle,
+      rgba(180, 255, 140, 1) 0%,
+      rgba(150, 255, 200, 0.7) 50%,
+      rgba(204, 255, 236, 0.2) 80%
+    );
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 1s ease-out forwards;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .delay-500 {
+    animation-delay: 500ms;
+  }
+}
+
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+} */
+
+html,
+body {
+  overflow-x: hidden;
+  /* min-width: 96rem; */
+  /* position: relative; */
+  min-height: 100vh;
 }
 
 body {
