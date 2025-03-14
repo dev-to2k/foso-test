@@ -11,11 +11,16 @@ export async function getListPosts() {
 
 export async function getPostById(id: string) {
   try {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const post = dummyPosts.find((post) => post.id === id);
+
+    if (!post) {
+      throw new Error("Không tìm thấy bài viết.");
+    }
+
     return post;
   } catch (error) {
-    console.log("Failed to fetch post by id", error);
+    console.error("Failed to fetch post by id", error);
+    return null;
   }
 }

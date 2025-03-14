@@ -12,7 +12,7 @@ import Button from "@/components/ui/button";
 import EmojiReaction from "@/components/ui/emoji-reaction";
 import Tag from "@/components/ui/tag";
 import { getPostById } from "@/utils/http/posts";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -22,27 +22,32 @@ type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  // read route params
-  const { id } = await params;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  try {
+    const { id } = await params;
+    const post = await getPostById(id);
 
-  // fetch data
-  const post = await fetch(process.env.BASE_URL + `/api/posts/${id}`)
-    .then((res) => res.json())
-    .then((res) => res.data);
+    if (!post) {
+      return {
+        title: "Không tìm thấy bài viết",
+      };
+    }
 
-  // optionally access and extend (rather than replace) parent metadata
-  const previousImages = (await parent).openGraph?.images || [];
-
-  return {
-    title: post.title,
-    openGraph: {
-      images: ["/some-specific-page-image.jpg", ...previousImages],
-    },
-  };
+    return {
+      title: post.title,
+      description: post.title,
+      openGraph: {
+        title: post.title,
+        description: post.title,
+        images: [post.image],
+      },
+    };
+  } catch (error) {
+    console.error("Failed to generate metadata:", error);
+    return {
+      title: "Blog - FOSO",
+    };
+  }
 }
 
 export default async function BlogDetails({ params }: Props) {
