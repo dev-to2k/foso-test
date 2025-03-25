@@ -191,7 +191,7 @@ export default function CandidateInformation() {
         <div className="flex justify-end">
           <Button
             variant="fill"
-            className="btn-primary text-white font-medium py-2 px-4 rounded-lg transition-colors"
+            className="btn-primary text-white font-medium py-2 px-4 transition-colors"
             onClick={() => router.push("/tai-nguyen/blog")}
           >
             Xem chi tiết bài test

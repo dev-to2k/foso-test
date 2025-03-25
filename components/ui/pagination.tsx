@@ -1,12 +1,19 @@
 "use client";
 
-import { generatePagination } from "@/utils";
+import { cn, generatePagination } from "@/utils";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import Button from "./button";
 
-export default function Pagination({ totalPages }: { totalPages: number }) {
+export default function Pagination({
+  totalPages,
+  className,
+}: {
+  totalPages: number;
+  className?: string;
+}) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
@@ -22,7 +29,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
 
   return (
     <>
-      <div className="inline-flex w-full justify-between">
+      <div className={cn("inline-flex w-full justify-between", className)}>
         <PaginationArrow
           direction="left"
           href={createPageURL(currentPage - 1)}
@@ -101,7 +108,7 @@ function PaginationArrow({
   isDisabled?: boolean;
 }) {
   const className = clsx(
-    "flex px-3 items-center justify-center rounded-md font-semibold",
+    "flex items-center justify-center font-semibold text-sm py-2 px-3 rounded-[40px] cursor-pointer",
     {
       "pointer-events-none text-gray-300": isDisabled,
       "hover:bg-gray-100": !isDisabled,
@@ -110,6 +117,7 @@ function PaginationArrow({
     }
   );
   const isLeft = direction === "left";
+  const textDirection = isLeft ? "Trang trước" : "Trang kế tiếp";
 
   const icon =
     direction === "left" ? (
@@ -129,19 +137,15 @@ function PaginationArrow({
     );
 
   return isDisabled ? (
-    <div className={className + "text-[#B3C5D4]"}>
+    <Button className={className + "text-[#B3C5D4]"}>
       {isLeft && icon}
-      <span className={isLeft ? "ml-3" : "mr-3"}>
-        {isLeft ? "Trang trước" : "Trang kế"}
-      </span>
+      <span className={isLeft ? "ml-3" : "mr-3"}>{textDirection}</span>
       {!isLeft && icon}
-    </div>
+    </Button>
   ) : (
     <Link className={className + "text-[#4D5F6E]"} href={href}>
       {isLeft && icon}
-      <span className={isLeft ? "ml-3" : "mr-3"}>
-        {isLeft ? "Trang trước" : "Trang kế tiếp"}
-      </span>
+      <span className={isLeft ? "ml-3" : "mr-3"}>{textDirection}</span>
       {!isLeft && icon}
     </Link>
   );

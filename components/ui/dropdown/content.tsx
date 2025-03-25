@@ -1,5 +1,6 @@
 "use client";
 import { useDropdown } from "@/hooks/use-dropdown";
+import { cn } from "@/utils";
 
 export default function Content({
   children,
@@ -11,9 +12,11 @@ export default function Content({
   const { isOpen } = useDropdown();
   if (!isOpen) return null;
 
+  const classBase = "absolute z-50 mt-2 py-2 bg-white rounded-md shadow-lg";
+
   return (
     <div
-      className={`absolute z-50 mt-2 py-2 bg-white rounded-md shadow-lg ${className}`}
+      className={cn(classBase, className)}
     >
       {children}
     </div>

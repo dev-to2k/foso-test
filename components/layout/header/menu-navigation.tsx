@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Dropdown } from "../../dropdown";
+import { Dropdown } from "../../ui/dropdown";
 
 export default function MenuNavigation() {
   const pathname = usePathname();
@@ -33,7 +33,8 @@ export default function MenuNavigation() {
         <li className="h-[37px] leading-[37px]">
           <Dropdown className="inline-block">
             <Dropdown.Trigger
-              className={`dynamic-text relative ${
+              isOpen={false}
+              className={`dynamic-text ${
                 pathname.startsWith("/giai-phap") ? "font-bold" : ""
               }`}
             >
@@ -52,9 +53,8 @@ export default function MenuNavigation() {
         <li className="h-[37px] leading-[37px]">
           <Dropdown className="inline-block">
             <Dropdown.Trigger
-              className={`dynamic-text relative ${
-                isResourcesActive ? "font-bold" : ""
-              }`}
+              isOpen={false}
+              className={`dynamic-text ${isResourcesActive ? "font-bold" : ""}`}
             >
               Tài nguyên
               {isResourcesActive && (

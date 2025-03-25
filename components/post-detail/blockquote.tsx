@@ -1,5 +1,13 @@
 import { cn } from "@/utils";
-import Image from "next/image";
+import { Racing_Sans_One } from "next/font/google";
+
+const racingSansOne = Racing_Sans_One({
+  display: "swap",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal"],
+  variable: "--font-racing-sans-one",
+});
 
 export default function Blockquote({
   wrapBlockquoteClassName = "",
@@ -25,18 +33,13 @@ export default function Blockquote({
     >
       {isCustomBlockquote && (
         <span
-          className={"text-[#15AA7A] text-[96px]"}
-          style={{
-            fontFamily: "var(--font-racing-sans-one)",
-            transform: " translate(0px, -20px)",
-          }}
+          className={`text-[#15AA7A] text-[96px] leading-6 ${racingSansOne.className}`}
+          // style={{
+          //   fontFamily: "var(--font-racing-sans-one)",
+          //   transform: " translate(0px, -20px)",
+          // }}
         >
-          <Image
-            src={"/icons/blockquote.svg"}
-            width={130}
-            height={130}
-            alt="blockquote"
-          />
+          “
         </span>
       )}
       <blockquote

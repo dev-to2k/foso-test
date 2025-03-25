@@ -3,13 +3,13 @@ import Image from "next/image";
 export default function AuthorDate() {
   return (
     <div className="flex items-center gap-4 mb-6">
-      <div className="flex items-center gap-2">
-        <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600 shadow-sm border border-gray-100">
+      <div className="flex items-center gap-3">
+        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-600 shadow-sm border border-gray-100">
           <span>F</span>
         </div>
         <div>
           <p className="text-sm text-[#667F93]">Tác giả</p>
-          <p className="font-bold text-[#33404A]">FOSO Creator</p>
+          <p className="font-bold text-[#33404A] text-base">FOSO Creator</p>
         </div>
       </div>
 

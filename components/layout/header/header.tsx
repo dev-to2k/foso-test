@@ -1,7 +1,7 @@
 "use client";
 
-import { Dropdown } from "@/components/dropdown/index";
 import Button from "@/components/ui/button";
+import { Dropdown } from "@/components/ui/dropdown/index";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -12,49 +12,52 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const headerClassNameBase =
-    "py-4 px-6 md:px-10 lg:px-16 mx-auto lg:rounded-full custom-shadow";
-  const widthWhenScrolling = isScrolled ? "max-w-full" : "lg:max-w-[1280px]";
-  const effectClassWhenScrolling = isScrolled
-    ? "fixed top-0 left-0 right-0 z-50 bg-white transition-all duration-300 lg:rounded-none lg:mt-0"
-    : "lg:my-4 transition-all";
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  // Add scroll event listener to detect when user scrolls
   useEffect(() => {
+    const mainContainer = document.querySelector(".main-container");
     const handleScroll = () => {
-      if (window.scrollY > 10) {
+      if (mainContainer?.scrollTop && mainContainer.scrollTop > 20) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
     };
 
-    // Add event listener
-    window.addEventListener("scroll", handleScroll);
+    mainContainer?.addEventListener("scroll", handleScroll);
 
-    // Clean up
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      mainContainer?.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const headerClassNameBase =
+    "py-4 px-6 md:px-10 lg:px-16 mx-auto lg:rounded-full custom-shadow sticky top-6 left-0 right-0 z-50 bg-white";
+  const widthWhenScrolling = isScrolled
+    ? "max-w-[1280px]"
+    : "lg:max-w-[1280px]";
+  const effectClassWhenScrolling = isScrolled
+    ? "fixed top-6  z-50 bg-white/30 backdrop-blur-md transition-all duration-300 lg:mt-0"
+    : "lg:my-4 transition-all";
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <header
       className={`${headerClassNameBase} ${widthWhenScrolling} ${effectClassWhenScrolling}`}
     >
+      <div className="backdrop"></div>
       <div className="w-full mx-auto flex justify-between items-center">
         {/* Left column - Logo */}
         <div className="flex-shrink-0">
           <Link href="/" className="flex items-center">
             <Image
               src="/images/logo.png"
+              // className="w-[134px] h-[55.40999984741211px]"
               alt="Logo"
               width={134}
               height={55}
+              // sizes="100vw"
               priority
             />
           </Link>

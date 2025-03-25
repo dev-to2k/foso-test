@@ -11,16 +11,17 @@ import TruncateText from "../ui/truncate-text";
 export default function PostItem({ post }: { post: IPost }) {
   const router = useRouter();
   return (
-    <article className="w-[505px] max-w-full flex flex-col overflow-hidden">
+    <article className="w-[505px] max-w-full flex flex-col overflow-hidden group">
       {/* Image section */}
-      <div className="max-h-[475px] w-full overflow-hidden">
+      <div className="max-h-[475px] w-full overflow-hidden rounded-[20px]">
         <Link href={`/tai-nguyen/blog/${post.id}`}>
           <Image
             src={post.image}
             alt={post.title}
-            className="object-cover"
+            className="object-cover w-full h-full transition-transform duration-300 ease-in-out group-hover:scale-110"
             width={505}
             height={475}
+            sizes="100vw"
           />
         </Link>
       </div>

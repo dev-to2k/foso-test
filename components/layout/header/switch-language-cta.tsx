@@ -1,5 +1,5 @@
-import { Dropdown } from "@/components/dropdown";
 import Button from "@/components/ui/button";
+import { Dropdown } from "@/components/ui/dropdown";
 import Image from "next/image";
 
 export default function SwitchLanguageCTA() {

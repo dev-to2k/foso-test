@@ -1,9 +1,10 @@
 import { dummyCategories } from "@/mock-data/data";
+import { delay } from "@/utils/functions";
 
 export const revalidate = 60;
 
 export async function GET() {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  await delay(1000)
 
   return Response.json({ data: dummyCategories });
 }

@@ -8,25 +8,33 @@ import Trigger from "./trigger";
 interface DropdownProps {
   children: React.ReactNode;
   className?: string;
+  disableAutoClose?: boolean; // new prop
 }
 
-function Dropdown({ children, className = "" }: DropdownProps) {
+function Dropdown({
+  children,
+  className = "",
+  disableAutoClose = false,
+}: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
+    if (!disableAutoClose) {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (
+          dropdownRef.current &&
+          !dropdownRef.current.contains(event.target as Node)
+        ) {
+          setIsOpen(false);
+        }
+      };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+      document.addEventListener("mousedown", handleClickOutside);
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [disableAutoClose]);
 
   return (
     <DropdownProvider
@@ -36,7 +44,10 @@ function Dropdown({ children, className = "" }: DropdownProps) {
         dropdownRef: dropdownRef as React.RefObject<HTMLDivElement>,
       }}
     >
-      <div className={`relative ${className}`} ref={dropdownRef}>
+      <div
+        className={`custom-dropdown relative ${className}`}
+        ref={dropdownRef}
+      >
         {children}
       </div>
     </DropdownProvider>
