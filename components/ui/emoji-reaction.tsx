@@ -56,33 +56,37 @@ export default function EmojiReaction({
       count: 0,
     },
   ],
-  totalReactions = 4,
+  totalReactions: initialTotalReactions = 4,
   onReactionClick,
 }: EmojiReactionProps) {
   const [reactions, setReactions] = useState<Reaction[]>(initialReactions);
   const [selectedReaction, setSelectedReaction] = useState<string | null>(null);
+  const [totalReactions, setTotalReactions] = useState(initialTotalReactions);
 
   const handleReactionClick = (reactionId: string) => {
-    // Toggle reaction
     setReactions((prevReactions) =>
       prevReactions.map((reaction) => {
         if (reaction.id === reactionId) {
-          // If already selected, deselect it
+          // Nếu reaction đã được chọn và click lại
           if (selectedReaction === reactionId) {
+            setTotalReactions(totalReactions - 1);
             return { ...reaction, count: Math.max(0, reaction.count - 1) };
           }
-          // Otherwise, select it
+          // Nếu chưa có reaction nào được chọn
+          if (!selectedReaction) {
+            setTotalReactions(totalReactions + 1);
+          }
+          // Nếu đã có reaction khác được chọn thì giữ nguyên tổng
           return { ...reaction, count: reaction.count + 1 };
         }
         return reaction;
       })
     );
 
-    // If already selected, deselect it
+    // Xử lý selected reaction
     if (selectedReaction === reactionId) {
       setSelectedReaction(null);
     } else {
-      // If another reaction was selected, decrement its count
       if (selectedReaction) {
         setReactions((prevReactions) =>
           prevReactions.map((reaction) => {
@@ -96,7 +100,6 @@ export default function EmojiReaction({
       setSelectedReaction(reactionId);
     }
 
-    // Call the callback if provided
     if (onReactionClick) {
       onReactionClick(reactionId);
     }
@@ -116,10 +119,8 @@ export default function EmojiReaction({
           <Button
             key={reaction.id}
             onClick={() => handleReactionClick(reaction.id)}
-            className={`flex flex-col items-center p-2 rounded-lg transition-all min-w-[90px] min-h-[109px] font-medium text-[#33404A] ${
-              selectedReaction === reaction.id
-                ? "border-2 border-green-500"
-                : "hover:border-gray-300"
+            className={`flex flex-col items-center p-2 rounded-lg transition-all duration-200 ease-in-out min-w-[90px] min-h-[109px] font-medium text-[#33404A] border-2 border-transparent ${
+              selectedReaction === reaction.id ? "border-green-500" : ""
             }`}
           >
             <div className="relative w-10 h-10 mb-2">
