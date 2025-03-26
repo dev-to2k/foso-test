@@ -169,6 +169,71 @@ export default function SocialSticky() {
               4. Quy trình 5S gồm các bước:
             </a>
           </li>
+          <li className="pl-4">
+            <a
+              href="#section-4-1"
+              onClick={(e) => handleClick(e, "section-4-1")}
+              className={`${
+                activeSection === "section-4-1"
+                  ? "text-[#15AA7A] font-bold"
+                  : ""
+              } hover:text-[#15AA7A] transition-colors`}
+            >
+              4.1 Seiri (Ngăn nắp)
+            </a>
+          </li>
+          <li className="pl-4">
+            <a
+              href="#section-4-2"
+              onClick={(e) => handleClick(e, "section-4-2")}
+              className={`${
+                activeSection === "section-4-2"
+                  ? "text-[#15AA7A] font-bold"
+                  : ""
+              } hover:text-[#15AA7A] transition-colors`}
+            >
+              4.2 Seiton (Sắp xếp)
+            </a>
+          </li>
+          <li className="pl-4">
+            <a
+              href="#section-4-3"
+              onClick={(e) => handleClick(e, "section-4-3")}
+              className={`${
+                activeSection === "section-4-3"
+                  ? "text-[#15AA7A] font-bold"
+                  : ""
+              } hover:text-[#15AA7A] transition-colors`}
+            >
+              4.3 Seiso (Vệ sinh)
+            </a>
+          </li>
+          <li className="pl-4">
+            <a
+              href="#section-4-4"
+              onClick={(e) => handleClick(e, "section-4-4")}
+              className={`${
+                activeSection === "section-4-4"
+                  ? "text-[#15AA7A] font-bold"
+                  : ""
+              } hover:text-[#15AA7A] transition-colors`}
+            >
+              4.4 Seiketsu (Tiêu chuẩn hóa)
+            </a>
+          </li>
+          <li className="pl-4">
+            <a
+              href="#section-4-5"
+              onClick={(e) => handleClick(e, "section-4-5")}
+              className={`${
+                activeSection === "section-4-5"
+                  ? "text-[#15AA7A] font-bold"
+                  : ""
+              } hover:text-[#15AA7A] transition-colors`}
+            >
+              4.5 Shitsuke (Kỷ luật)
+            </a>
+          </li>
           <li>
             <a
               href="#section-5"
