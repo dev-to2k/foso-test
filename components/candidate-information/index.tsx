@@ -26,7 +26,9 @@ export default function CandidateInformation() {
                 <Image
                   src="/images/profile/truong-thanh-trung.jpg"
                   alt="Avatar"
-                  fill
+                  width={128}
+                  height={128}
+                  sizes="100vw"
                   className="object-cover"
                 />
               </div>

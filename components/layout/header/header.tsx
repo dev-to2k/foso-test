@@ -30,12 +30,12 @@ export default function Header() {
   }, []);
 
   const headerClassNameBase =
-    "py-4 px-6 md:px-10 lg:px-16 mx-auto lg:rounded-full custom-shadow sticky top-6 left-0 right-0 z-50 bg-white";
+    "py-4 px-6 md:px-10 lg:px-16 mx-auto lg:rounded-full custom-shadow sticky top-0 lg:top-6 left-0 right-0 z-50 bg-white";
   const widthWhenScrolling = isScrolled
     ? "max-w-[1280px]"
     : "lg:max-w-[1280px]";
   const effectClassWhenScrolling = isScrolled
-    ? "fixed top-6  z-50 bg-white/30 backdrop-blur-md transition-all duration-300 lg:mt-0"
+    ? "fixed z-50 bg-white/30 backdrop-blur-md transition-all duration-300 lg:mt-0"
     : "lg:my-4 transition-all";
 
   const toggleMenu = () => {

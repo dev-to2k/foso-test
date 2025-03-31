@@ -27,16 +27,16 @@ export default async function Blog({
   const suspenseKey = `posts-page-${page}`;
 
   return (
-    <div className="blog-page min-h-screen container mx-auto relative max-w-[1440px] mt-24">
+    <div className="blog-page min-h-screen container mx-auto relative max-w-[1440px] mt-12 md:mt-16 lg:mt-24">
       <MainHeading />
 
-      <section className="container max-w-[1280px] mx-auto mb-10 px-4 lg:px-0">
-        <div className="absolute w-[500px] h-[500px] rounded-full opacity-80 blur-3xl -z-10 circle-gradient-2 -left-[330px] top-[300px] animate-scale-in" />
-        <div className="absolute w-[500px] h-[500px] rounded-full opacity-80 blur-3xl -z-10 circle-gradient-1 bottom-0 -right-[300px] animate-scale-in stagger-2" />
+      <section className="container max-w-[1280px] mx-auto mb-10 px-4">
+        <div className="absolute w-[300px] md:w-[400px] lg:w-[500px] h-[300px] md:h-[400px] lg:h-[500px] rounded-full opacity-80 blur-3xl -z-10 circle-gradient-2 -left-[200px] md:-left-[250px] lg:-left-[330px] top-[300px] animate-scale-in" />
+        <div className="absolute w-[300px] md:w-[400px] lg:w-[500px] h-[300px] md:h-[400px] lg:h-[500px] rounded-full opacity-80 blur-3xl -z-10 circle-gradient-1 bottom-0 -right-[200px] md:-right-[250px] lg:-right-[300px] animate-scale-in stagger-2" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6 lg:gap-8 mb-6 md:mb-8 lg:mb-10">
           <div className="lg:col-span-8">
-            <h2 className="font-extrabold text-4xl mb-4 animate-stagger-in">
+            <h2 className="font-extrabold text-2xl md:text-3xl lg:text-4xl mb-4 animate-stagger-in">
               Tất Cả Bài Viết
             </h2>
             <div className="animate-slide-up-fade stagger-2">
@@ -54,13 +54,13 @@ export default async function Blog({
 
           {/* Search & Category */}
           <div className="lg:col-span-4">
-            <div className="max-w-[366px] w-full sticky top-[130px] h-fit">
-              <div className="mb-10 animate-slide-up-fade stagger-2">
+            <div className="max-w-full lg:max-w-[366px] w-full lg:sticky lg:top-[130px] h-fit">
+              <div className="mb-6 md:mb-8 lg:mb-10 animate-slide-up-fade stagger-2">
                 <p className="font-extrabold text-2xl mb-4">Tìm Kiếm</p>
                 <Search />
               </div>
 
-              <div className="mb-10 min-h-60 animate-slide-up-fade stagger-3">
+              <div className="mb-6 md:mb-8 lg:mb-10 min-h-60 animate-slide-up-fade stagger-3">
                 <p className="font-extrabold text-2xl mb-4">Danh Mục</p>
                 <Suspense
                   key={`categories-${page}`}
@@ -70,9 +70,9 @@ export default async function Blog({
                 </Suspense>
               </div>
 
-              <div className="mb-10 animate-slide-up-fade stagger-4">
+              <div className="mb-6 md:mb-8 lg:mb-10 animate-slide-up-fade stagger-4">
                 <AdsCard
-                  className="w-[366px]"
+                  className="w-full lg:w-[366px]"
                   image={
                     <Image
                       src="/images/ads/ads-1.png"
@@ -123,7 +123,7 @@ export default async function Blog({
                   }
                 />
                 <AdsCard
-                  className="w-[366px]"
+                  className="w-full lg:w-[366px]"
                   image={
                     <Image
                       src="/images/ads/ads-4.png"

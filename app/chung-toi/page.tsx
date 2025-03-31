@@ -7,11 +7,9 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <div className="container mx-auto min-h-screen pt-10">
-      <div className="flex flex-col items-center">
-        <p className="mb-4">About Page</p>
-        <Breadcrumb autoGenerate />
-      </div>
+    <div className="container mx-auto max-w-[1440px] mt-12 text-center">
+      <p className="mb-4">About Page</p>
+      <Breadcrumb autoGenerate className="justify-center" />
     </div>
   );
 }

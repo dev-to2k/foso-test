@@ -38,6 +38,34 @@
     animation-delay: 1.2s;
   }
 
+  @media (max-width: 767px) {
+    .highlight-text::before {
+      height: 20px;
+      bottom: 0px;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .highlight-text::before {
+      height: 24px;
+      bottom: 25px;
+    }
+  }
+
+  @media (min-width: 1025px) and (max-width: 1440px) {
+    .highlight-text::before {
+      height: 28px;
+      bottom: 18px;
+    }
+  }
+
+  @media (min-width: 1441px) {
+    .highlight-text::before {
+      height: 32px;
+      bottom: 20px;
+    }
+  }
+
   @keyframes gradient {
     0% {
       background-position: 0% 50%;

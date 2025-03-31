@@ -19,9 +19,9 @@ export default function PostList({
   // Determine grid columns based on numberColumn prop
   const gridColumnClass = {
     1: "grid-cols-1",
-    2: "grid-cols-2",
-    3: "grid-cols-2 lg:grid-cols-3",
-    4: "grid-cols-2 lg:grid-cols-4",
+    2: "grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2",
+    3: "grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3",
+    4: "grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
   }[numberColumn];
 
   return (

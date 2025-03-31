@@ -58,21 +58,23 @@ export default async function BlogDetails({ params }: Props) {
 
   return (
     <div className="max-w-[1920px] mx-auto">
-      <div className="container mx-auto pt-10 max-w-[1440px]">
+      <div className="container mx-auto pt-4 sm:pt-6 md:pt-8 lg:pt-10 px-4 sm:px-6 lg:px-8 max-w-[1440px]">
         <Breadcrumb
           autoGenerate
           className="text-[#050505]"
           postTitle={post.title}
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mt-4 sm:mt-6">
           {/* Main Content - Left Side (2/3 width on large screens) */}
-          <div className="lg:col-span-2 max-[900px]">
+          <div className="lg:col-span-2 max-w-[900px]">
             {/* Blog Header */}
-            <div className="mb-6">
-              <Tag className="mb-4 inline-block">Test tag</Tag>
+            <div className="mb-4 sm:mb-6">
+              <Tag className="mb-2 sm:mb-4 inline-block">Test tag</Tag>
 
-              <h1 className="text-4xl font-extrabold mb-4">{post.title}</h1>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-4">
+                {post.title}
+              </h1>
 
               {/* Author and Date */}
               <AuthorDate />
@@ -89,8 +91,8 @@ export default async function BlogDetails({ params }: Props) {
           </div>
 
           {/* Table of Contents - Right Side (1/3 width on large screens) */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-36">
+          <div className="lg:col-span-1 order-first lg:order-last">
+            <div className="sticky top-20 lg:top-36">
               {/* Social Sticky */}
               <SocialSticky />
 
@@ -188,8 +190,8 @@ export default async function BlogDetails({ params }: Props) {
         </div>
 
         {/* Related Posts */}
-        <div className="mt-10">
-          <h2 className="text-4xl font-extrabold text-[#050505] mb-6">
+        <div className="mt-6 sm:mt-8 lg:mt-10">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#050505] mb-4 sm:mb-6">
             Bài Viết Liên Quan
           </h2>
           <Suspense

@@ -1,6 +1,85 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dropdown } from "../ui/dropdown";
+
+const SECTIONS = [
+  {
+    id: "section-1",
+    title: "1. Quy trình 5S là gì?",
+  },
+  {
+    id: "section-2",
+    title: "2. Lợi ích quy trình 5S đem lại",
+  },
+  {
+    id: "section-3",
+    title: "3. Tại sao doanh nghiệp nên áp dụng quy trình 5S?",
+    subsections: [
+      {
+        id: "section-3-1",
+        title: "3.1 Cải thiện ổn định môi trường làm việc",
+      },
+      {
+        id: "section-3-2",
+        title: "3.2 Tiết kiệm thời gian dùng vật liệu",
+      },
+      {
+        id: "section-3-3",
+        title: "3.3 Tăng năng suất làm việc",
+      },
+      {
+        id: "section-3-4",
+        title: "3.4 Tiết kiệm chi phí",
+      },
+      {
+        id: "section-3-5",
+        title: "3.5 Tăng chất lượng sản phẩm",
+      },
+    ],
+  },
+  {
+    id: "section-4",
+    title: "4. Quy trình 5S gồm các bước:",
+    subsections: [
+      {
+        id: "section-4-1",
+        title: "4.1 Seiri (Ngăn nắp)",
+      },
+      {
+        id: "section-4-2",
+        title: "4.2 Seiton (Sắp xếp)",
+      },
+      {
+        id: "section-4-3",
+        title: "4.3 Seiso (Vệ sinh)",
+      },
+      {
+        id: "section-4-4",
+        title: "4.4 Seiketsu (Tiêu chuẩn hóa)",
+      },
+      {
+        id: "section-4-5",
+        title: "4.5 Shitsuke (Kỷ luật)",
+      },
+    ],
+  },
+  {
+    id: "section-5",
+    title: "5. Quy trình được thực hiện như sau:",
+  },
+  {
+    id: "section-6",
+    title: "6. Quy trình 5S có giống với Kaizen?",
+  },
+  {
+    id: "section-7",
+    title: "7. Đối tượng nào nên áp dụng 5S?",
+  },
+  {
+    id: "section-8",
+    title: "8. Các yếu tố lưu ý nên tham công cho quy trình 5S",
+  },
+];
 
 export default function SocialSticky() {
   const [activeSection, setActiveSection] = useState("section-1");
@@ -8,10 +87,17 @@ export default function SocialSticky() {
   useEffect(() => {
     const handleScroll = () => {
       const sections = document.querySelectorAll(".prose h2, .prose h3");
-      const scrollPosition = window.scrollY + 150;
+      const scrollPosition =
+        window.innerWidth >= 1024
+          ? window.scrollY + 150
+          : document.documentElement.scrollTop + 100;
 
       sections.forEach((section) => {
-        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        const sectionTop =
+          section.getBoundingClientRect().top +
+          (window.innerWidth >= 1024
+            ? window.scrollY
+            : document.documentElement.scrollTop);
         const sectionId = section.getAttribute("id");
 
         if (sectionTop <= scrollPosition) {
@@ -20,12 +106,15 @@ export default function SocialSticky() {
       });
     };
 
-    // Listen for scroll events on the main container
-    const mainContainer = document.querySelector(".main-container");
-    mainContainer?.addEventListener("scroll", handleScroll);
+    const scrollContainer =
+      window.innerWidth >= 1024
+        ? document.querySelector(".main-container")
+        : window;
+
+    scrollContainer?.addEventListener("scroll", handleScroll);
 
     return () => {
-      mainContainer?.removeEventListener("scroll", handleScroll);
+      scrollContainer?.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -37,247 +126,63 @@ export default function SocialSticky() {
     const element = document.getElementById(sectionId);
     const mainContainer = document.querySelector(".main-container");
 
-    if (element && mainContainer) {
-      const offset = 100;
-      const elementPosition = element.getBoundingClientRect().top;
-      const containerScrollTop = mainContainer.scrollTop;
-      const offsetPosition = elementPosition + containerScrollTop - offset;
+    if (element) {
+      const offset = window.innerWidth >= 1024 ? 100 : 80;
 
-      mainContainer.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
+      if (window.innerWidth >= 1024 && mainContainer) {
+        const elementPosition = element.getBoundingClientRect().top;
+        const containerScrollTop = mainContainer.scrollTop;
+        const offsetPosition = elementPosition + containerScrollTop - offset;
+
+        mainContainer.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      } else {
+        const offsetPosition = element.offsetTop - offset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
     }
   };
 
+  const renderLink = (
+    section: { id: string; title: string },
+    isSubsection = false
+  ) => (
+    <li key={section.id} className={isSubsection ? "pl-4" : ""}>
+      <a
+        href={`#${section.id}`}
+        onClick={(e) => handleClick(e, section.id)}
+        className={`${
+          activeSection === section.id ? "text-[#15AA7A] font-bold" : ""
+        } hover:text-[#15AA7A] transition-colors`}
+      >
+        {section.title}
+      </a>
+    </li>
+  );
+
   return (
-    <Dropdown disableAutoClose>
+    <Dropdown disableAutoClose className="lg:block">
       <Dropdown.Trigger isOpen={true}>
-        <h3 className="text-2xl font-extrabold cursor-pointer">
+        <h3 className="text-xl sm:text-2xl font-extrabold cursor-pointer">
           Nội Dung Bài Viết
         </h3>
       </Dropdown.Trigger>
 
       <Dropdown.Content className="relative bg-transparent shadow-none">
-        <ul className="space-y-4 font-medium text-[#33404A] text-lg">
-          <li>
-            <a
-              href="#section-1"
-              onClick={(e) => handleClick(e, "section-1")}
-              className={`${
-                activeSection === "section-1" ? "text-[#15AA7A] font-bold" : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              1. Quy trình 5S là gì?
-            </a>
-          </li>
-          <li>
-            <a
-              href="#section-2"
-              onClick={(e) => handleClick(e, "section-2")}
-              className={`${
-                activeSection === "section-2" ? "text-[#15AA7A] font-bold" : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              2. Lợi ích quy trình 5S đem lại
-            </a>
-          </li>
-          <li>
-            <a
-              href="#section-3"
-              onClick={(e) => handleClick(e, "section-3")}
-              className={`${
-                activeSection === "section-3" ? "text-[#15AA7A] font-bold" : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              3. Tại sao doanh nghiệp nên áp dụng quy trình 5S?
-            </a>
-          </li>
-          <li className="pl-4">
-            <a
-              href="#section-3-1"
-              onClick={(e) => handleClick(e, "section-3-1")}
-              className={`${
-                activeSection === "section-3-1"
-                  ? "text-[#15AA7A] font-bold"
-                  : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              3.1 Cải thiện ổn định môi trường làm việc
-            </a>
-          </li>
-          <li className="pl-4">
-            <a
-              href="#section-3-2"
-              onClick={(e) => handleClick(e, "section-3-2")}
-              className={`${
-                activeSection === "section-3-2"
-                  ? "text-[#15AA7A] font-bold"
-                  : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              3.2 Tiết kiệm thời gian dùng vật liệu
-            </a>
-          </li>
-          <li className="pl-4">
-            <a
-              href="#section-3-3"
-              onClick={(e) => handleClick(e, "section-3-3")}
-              className={`${
-                activeSection === "section-3-3"
-                  ? "text-[#15AA7A] font-bold"
-                  : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              3.3 Tăng năng suất làm việc
-            </a>
-          </li>
-          <li className="pl-4">
-            <a
-              href="#section-3-4"
-              onClick={(e) => handleClick(e, "section-3-4")}
-              className={`${
-                activeSection === "section-3-4"
-                  ? "text-[#15AA7A] font-bold"
-                  : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              3.4 Tiết kiệm chi phí
-            </a>
-          </li>
-          <li className="pl-4">
-            <a
-              href="#section-3-5"
-              onClick={(e) => handleClick(e, "section-3-5")}
-              className={`${
-                activeSection === "section-3-5"
-                  ? "text-[#15AA7A] font-bold"
-                  : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              3.5 Tăng chất lượng sản phẩm
-            </a>
-          </li>
-          <li>
-            <a
-              href="#section-4"
-              onClick={(e) => handleClick(e, "section-4")}
-              className={`${
-                activeSection === "section-4" ? "text-[#15AA7A] font-bold" : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              4. Quy trình 5S gồm các bước:
-            </a>
-          </li>
-          <li className="pl-4">
-            <a
-              href="#section-4-1"
-              onClick={(e) => handleClick(e, "section-4-1")}
-              className={`${
-                activeSection === "section-4-1"
-                  ? "text-[#15AA7A] font-bold"
-                  : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              4.1 Seiri (Ngăn nắp)
-            </a>
-          </li>
-          <li className="pl-4">
-            <a
-              href="#section-4-2"
-              onClick={(e) => handleClick(e, "section-4-2")}
-              className={`${
-                activeSection === "section-4-2"
-                  ? "text-[#15AA7A] font-bold"
-                  : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              4.2 Seiton (Sắp xếp)
-            </a>
-          </li>
-          <li className="pl-4">
-            <a
-              href="#section-4-3"
-              onClick={(e) => handleClick(e, "section-4-3")}
-              className={`${
-                activeSection === "section-4-3"
-                  ? "text-[#15AA7A] font-bold"
-                  : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              4.3 Seiso (Vệ sinh)
-            </a>
-          </li>
-          <li className="pl-4">
-            <a
-              href="#section-4-4"
-              onClick={(e) => handleClick(e, "section-4-4")}
-              className={`${
-                activeSection === "section-4-4"
-                  ? "text-[#15AA7A] font-bold"
-                  : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              4.4 Seiketsu (Tiêu chuẩn hóa)
-            </a>
-          </li>
-          <li className="pl-4">
-            <a
-              href="#section-4-5"
-              onClick={(e) => handleClick(e, "section-4-5")}
-              className={`${
-                activeSection === "section-4-5"
-                  ? "text-[#15AA7A] font-bold"
-                  : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              4.5 Shitsuke (Kỷ luật)
-            </a>
-          </li>
-          <li>
-            <a
-              href="#section-5"
-              onClick={(e) => handleClick(e, "section-5")}
-              className={`${
-                activeSection === "section-5" ? "text-[#15AA7A] font-bold" : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              5. Quy trình được thực hiện như sau:
-            </a>
-          </li>
-          <li>
-            <a
-              href="#section-6"
-              onClick={(e) => handleClick(e, "section-6")}
-              className={`${
-                activeSection === "section-6" ? "text-[#15AA7A] font-bold" : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              6. Quy trình 5S có giống với Kaizen?
-            </a>
-          </li>
-          <li>
-            <a
-              href="#section-7"
-              onClick={(e) => handleClick(e, "section-7")}
-              className={`${
-                activeSection === "section-7" ? "text-[#15AA7A] font-bold" : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              7. Đối tượng nào nên áp dụng 5S?
-            </a>
-          </li>
-          <li>
-            <a
-              href="#section-8"
-              onClick={(e) => handleClick(e, "section-8")}
-              className={`${
-                activeSection === "section-8" ? "text-[#15AA7A] font-bold" : ""
-              } hover:text-[#15AA7A] transition-colors`}
-            >
-              8. Các yếu tố lưu ý nên tham công cho quy trình 5S
-            </a>
-          </li>
+        <ul className="space-y-3 sm:space-y-4 font-medium text-[#33404A] text-base sm:text-lg">
+          {SECTIONS.map((section) => (
+            <Fragment key={section.id}>
+              {renderLink(section)}
+              {section.subsections?.map((subsection) =>
+                renderLink(subsection, true)
+              )}
+            </Fragment>
+          ))}
         </ul>
       </Dropdown.Content>
     </Dropdown>

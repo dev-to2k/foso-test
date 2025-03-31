@@ -18,9 +18,9 @@ export default function PostSkeleton({
   // Determine grid columns based on numberColumn prop
   const gridColumnClass = {
     1: "grid-cols-1",
-    2: "grid-cols-1 md:grid-cols-2",
-    3: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
-    4: "grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
+    2: "grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2",
+    3: "grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3",
+    4: "grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
   }[numberColumn];
 
   return (
@@ -28,11 +28,11 @@ export default function PostSkeleton({
       {skeletonItems.map((i) => (
         <div
           key={i}
-          className="w-[505px] max-w-full flex flex-col overflow-hidden"
+          className="w-full md:w-[505px] max-w-full flex flex-col overflow-hidden"
         >
           {/* Image skeleton */}
-          <div className="max-h-[475px] w-full overflow-hidden">
-            <Skeleton height={475} />
+          <div className="h-[300px] md:h-[400px] lg:h-[475px] w-full overflow-hidden">
+            <Skeleton height="100%" />
           </div>
 
           {/* Content skeleton */}

@@ -106,24 +106,24 @@ export default function EmojiReaction({
   };
 
   return (
-    <div className="w-full my-4 shadow-sm rounded-3xl h-[239px] py-6">
-      <div className="font-extrabold text-xl text-center text-[#33404A] mb-2">
+    <div className="w-full my-4 shadow-sm rounded-3xl py-6 min-h-[239px]">
+      <div className="font-extrabold text-lg sm:text-xl text-center text-[#33404A] mb-2 px-2">
         Bạn thấy bài viết như thế nào?
       </div>
-      <div className="text-center text-base font-medium text-[#33404A] mb-4">
+      <div className="text-center text-sm sm:text-base font-medium text-[#33404A] mb-4">
         {totalReactions} phản hồi
       </div>
 
-      <div className="flex justify-center space-x-2 md:space-x-4">
+      <div className="grid grid-cols-3 gap-2 px-2 sm:flex sm:justify-center sm:space-x-4">
         {reactions.map((reaction) => (
           <Button
             key={reaction.id}
             onClick={() => handleReactionClick(reaction.id)}
-            className={`flex flex-col items-center p-2 rounded-lg transition-all duration-200 ease-in-out min-w-[90px] min-h-[109px] font-medium text-[#33404A] border-2 border-transparent ${
+            className={`flex flex-col items-center p-1 sm:p-2 rounded-lg transition-all duration-200 ease-in-out sm:min-w-[90px] sm:min-h-[109px] font-medium text-[#33404A] border-2 border-transparent ${
               selectedReaction === reaction.id ? "border-green-500" : ""
             }`}
           >
-            <div className="relative w-10 h-10 mb-2">
+            <div className="relative w-8 h-8 sm:w-10 sm:h-10 mb-1 sm:mb-2">
               <Image
                 src={reaction.imageSrc}
                 alt={reaction.label}
@@ -132,8 +132,10 @@ export default function EmojiReaction({
                 className="object-contain"
               />
             </div>
-            <div className="text-base font-bold">{reaction.count}</div>
-            <div className="text-sm">{reaction.label}</div>
+            <div className="text-sm sm:text-base font-bold">
+              {reaction.count}
+            </div>
+            <div className="text-xs sm:text-sm">{reaction.label}</div>
           </Button>
         ))}
       </div>

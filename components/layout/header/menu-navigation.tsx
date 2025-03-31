@@ -14,6 +14,10 @@ export default function MenuNavigation() {
     pathname.startsWith("/tai-nguyen") ||
     pathname.includes("/blog");
 
+  const handleDropdownItemClick = (path: string) => {
+    router.push(path);
+  };
+
   return (
     <nav className="hidden lg:flex items-center justify-center flex-1 mx-10 h-[37px]">
       <ul className="flex lg:space-x-5 xl:space-x-8">
@@ -44,9 +48,21 @@ export default function MenuNavigation() {
               )}
             </Dropdown.Trigger>
             <Dropdown.Content className="min-w-[200px]">
-              <Dropdown.Item>Giải pháp 1</Dropdown.Item>
-              <Dropdown.Item>Giải pháp 2</Dropdown.Item>
-              <Dropdown.Item>Giải pháp 3</Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => handleDropdownItemClick("/giai-phap/1")}
+              >
+                Giải pháp 1
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => handleDropdownItemClick("/giai-phap/2")}
+              >
+                Giải pháp 2
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => handleDropdownItemClick("/giai-phap/3")}
+              >
+                Giải pháp 3
+              </Dropdown.Item>
             </Dropdown.Content>
           </Dropdown>
         </li>
