@@ -29,14 +29,19 @@ export default function Pagination({
 
   return (
     <>
-      <div className={cn("inline-flex w-full justify-between", className)}>
+      <div
+        className={cn(
+          "inline-flex w-full flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0",
+          className
+        )}
+      >
         <PaginationArrow
           direction="left"
           href={createPageURL(currentPage - 1)}
           isDisabled={currentPage <= 1}
         />
 
-        <div className="flex space-x-2">
+        <div className="flex flex-wrap justify-center gap-2">
           {allPages.map((page, index) => {
             let position: "first" | "last" | "single" | "middle" | undefined;
 
@@ -79,13 +84,12 @@ function PaginationNumber({
   isActive: boolean;
 }) {
   const className = clsx(
-    "flex h-10 w-10 items-center justify-center text-sm rounded-lg text-[#B3C5D4] font-semibold",
+    "flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center text-xs sm:text-sm rounded-lg text-[#B3C5D4] font-semibold",
     {
       "rounded-l-md": position === "first" || position === "single",
       "rounded-r-md": position === "last" || position === "single",
       "z-10 bg-[#D1F7EA] border-[#D1F7EA] text-black": isActive,
       "hover:bg-gray-100": !isActive && position !== "middle",
-      // "text-gray-300": position === "middle",
     }
   );
 
@@ -108,12 +112,12 @@ function PaginationArrow({
   isDisabled?: boolean;
 }) {
   const className = clsx(
-    "flex items-center justify-center font-semibold text-sm py-2 px-3 rounded-[40px] cursor-pointer",
+    "flex items-center justify-center font-semibold text-xs sm:text-sm py-1.5 sm:py-2 px-2 sm:px-3 rounded-[40px] cursor-pointer w-full sm:w-auto",
     {
       "pointer-events-none text-gray-300": isDisabled,
       "hover:bg-gray-100": !isDisabled,
-      "mr-2 md:mr-4": direction === "left",
-      "ml-2 md:ml-4": direction === "right",
+      "mr-1 sm:mr-2 md:mr-4": direction === "left",
+      "ml-1 sm:ml-2 md:ml-4": direction === "right",
     }
   );
   const isLeft = direction === "left";
